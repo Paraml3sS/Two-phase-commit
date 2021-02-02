@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+    db:
+        image: postgres:13
+        container_name: 2pc-postgres
+        volumes: 
+            - db-data:/var/lib/postgresql/data
+        environment: 
+            POSTGRES_DB: postgresdb
+            POSTGRES_PASSWORD: closeyoureyes
+
+    api:
+        build: 
+            context: ./Api
+            dockerfile: Dockerfile
+        image: dot-net-core-api
+        container_name: 2pc-api
+        environment: 
+            DB_HOST: db
+            DB_DATABASE: postgresdb
+            DB_PASSWORD: closeyoureyes
+        ports: 
+            - 5002:80
+
+volumes: 
+  db-data:
+      name: db-data
