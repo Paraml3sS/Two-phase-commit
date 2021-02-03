@@ -5,24 +5,25 @@ services:
         image: postgres:13
         container_name: 2pc-postgres
         volumes: 
-            - db-data:/var/lib/postgresql/data
+            - ./Application/Application.DbScripts/init.sql :/docker-entrypoint-initdb.d/init.sql
         environment: 
             POSTGRES_DB: postgresdb
+            POSTGRES_USER: superuser
             POSTGRES_PASSWORD: closeyoureyes
 
     api:
         build: 
-            context: ./Api
+            context: ./Application
             dockerfile: Dockerfile
         image: dot-net-core-api
         container_name: 2pc-api
         environment: 
             DB_HOST: db
             DB_DATABASE: postgresdb
+            POSTGRES_USER: superuser
             DB_PASSWORD: closeyoureyes
         ports: 
             - 5002:80
+        depends_on: 
+            - db    
 
-volumes: 
-  db-data:
-      name: db-data
