@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Api", "Application.Api\Application.Api.csproj", "{51684FB4-30F3-43EA-A552-D754D1C9D8D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Database", "Application.Database\Application.Database.csproj", "{FAF1414D-0538-403A-AD95-968951F48A8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51684FB4-30F3-43EA-A552-D754D1C9D8D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51684FB4-30F3-43EA-A552-D754D1C9D8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51684FB4-30F3-43EA-A552-D754D1C9D8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51684FB4-30F3-43EA-A552-D754D1C9D8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF1414D-0538-403A-AD95-968951F48A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF1414D-0538-403A-AD95-968951F48A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF1414D-0538-403A-AD95-968951F48A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF1414D-0538-403A-AD95-968951F48A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
