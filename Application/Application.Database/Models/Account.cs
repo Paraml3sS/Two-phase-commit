@@ -1,9 +1,9 @@
-﻿namespace Application.Database.Models
+﻿namespace Application.Database.Contexts.Models
 {
     public class Account
     {
         public int Id { get; set; }
         public string ClientName { get; set; }
-        public long Amount { get; set; }
+        public int Amount { get; set; }
     }
 }

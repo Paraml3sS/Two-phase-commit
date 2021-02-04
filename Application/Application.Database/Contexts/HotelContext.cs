@@ -1,12 +1,12 @@
-﻿using Application.Database.Models;
+﻿using Application.Database.Contexts.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Database
+namespace Application.Database.Contexts
 {
     public class HotelContext: DbContext
     {
-        public DbSet<HotelBooking> HotelBookings { get; set; }
-        
         public HotelContext(DbContextOptions<HotelContext> options): base(options) { }
+        
+        public DbSet<HotelBooking> HotelBookings { get; set; }
     }
 }

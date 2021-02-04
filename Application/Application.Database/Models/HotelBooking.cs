@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Database.Models
+namespace Application.Database.Contexts.Models
 {
     public class HotelBooking
     {

@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Database;
+using Application.Database.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Application.Api
 {
@@ -28,10 +22,16 @@ namespace Application.Api
         {
             var envVariables = Environment.GetEnvironmentVariables();
             
-            var connectionString = $"host={envVariables["DB_HOST"]};port=5432;database={envVariables["DB_DATABASE"]};username={envVariables["POSTGRES_USER"]};password={envVariables["DB_PASSWORD"]};";
-            
-            
+            var connectionString = "host=localhost;port=5432;database=postgresdb;username=superuser;password=closeyoureyes;";
+            // var connectionString = $"host={envVariables["DB_HOST"]};port=5432;database={envVariables["DB_DATABASE"]};username={envVariables["POSTGRES_USER"]};password={envVariables["DB_PASSWORD"]};";
+
             services.AddDbContextPool<HotelContext>(options 
+                => options.UseNpgsql(connectionString));
+            
+            services.AddDbContextPool<FlyContext>(options 
+                => options.UseNpgsql(connectionString));
+            
+            services.AddDbContextPool<AccountContext>(options 
                 => options.UseNpgsql(connectionString));
             
             services.AddControllers();
