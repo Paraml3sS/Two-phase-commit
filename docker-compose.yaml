@@ -1,32 +1,42 @@
 version: "3"
 
 services:
-    db:
+    postgresql-account:
         image: postgres:13
-        container_name: 2pc-postgres
-        volumes: 
-            - ./Application/Application.DbScripts/init.sql :/docker-entrypoint-initdb.d/init.sql
-        environment: 
-            POSTGRES_DB: postgresdb
-            POSTGRES_USER: superuser
-            POSTGRES_PASSWORD: closeyoureyes
-        command: postgres -c max_prepared_transactions=5
-        ports: 
-            - 5432:5432
+        
+    postgresql-hotel:
+        image: postgres:13
 
-    api:
+    postgresql-fly:
+        image: postgres:13
+
+
+    aggregator-company-api:
         build: 
-            context: ./Application
-            dockerfile: Dockerfile
-        image: dot-net-core-api
-        container_name: 2pc-api
-        environment: 
-            DB_HOST: db
-            DB_DATABASE: postgresdb
-            POSTGRES_USER: superuser
-            DB_PASSWORD: closeyoureyes
-        ports: 
-            - 5002:80
-        depends_on: 
-            - db    
+            context: ./AggregatorCompany
+            dockerfile: ./AggregatorCompany.Dockerfile
+        image: aggregator-company-api
 
+    account-company-api:
+        build: 
+            context: ./AccountCompany
+            dockerfile: ./AccountCompany.Dockerfile
+        image: account-company-api
+        depends_on: 
+            - postgresql-account  
+
+    fly-company-api:
+        build: 
+            context: ./FlyCompany
+            dockerfile: ./FlyCompany.Dockerfile
+        image: fly-company-api
+        depends_on: 
+            - postgresql-fly
+
+    hotel-company-api:
+        build: 
+            context: ./HotelCompany
+            dockerfile: ./HotelCompany.Dockerfile
+        image: hotel-company-api
+        depends_on: 
+            - postgresql-hotel

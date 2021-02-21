@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+    postgresql-account:
+        ports: 
+            - 5401:5432
+        volumes: 
+            - ./AccountCompany/AccountCompany.DbScripts/init.sql :/docker-entrypoint-initdb.d/init.sql
+        environment: 
+            POSTGRES_DB: postgresdb
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: closeyoureyes
+        command: postgres -c max_prepared_transactions=5
+        
+    postgresql-hotel:
+        ports: 
+            - 5402:5432
+        volumes: 
+            - ./HotelCompany/HotelCompany.DbScripts/init.sql :/docker-entrypoint-initdb.d/init.sql
+        environment: 
+            POSTGRES_DB: postgresdb
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: closeyoureyes
+        command: postgres -c max_prepared_transactions=5
+
+    postgresql-fly:
+        ports: 
+            - 5403:5432
+        volumes: 
+            - ./FlyCompany/FlyCompany.DbScripts/init.sql :/docker-entrypoint-initdb.d/init.sql
+        environment: 
+            POSTGRES_DB: postgresdb
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: closeyoureyes
+        command: postgres -c max_prepared_transactions=5
+
+
+    aggregator-company-api:
+        environment: 
+            AccountCompanyApi: http://account-company-api:80/api
+            FlyCompanyApi: http://fly-company-api:80/api
+            HotelCompanyApi: http://hotel-company-api:80/api
+        ports: 
+            - 5000:80
+
+    account-company-api:
+        environment: 
+            ConnectionString: host=postgresql-account;port=5432;database=postgresdb;username=user;password=closeyoureyes;
+        ports: 
+            - 5001:80
+
+    fly-company-api:
+        environment: 
+            ConnectionString: host=postgresql-fly;port=5432;database=postgresdb;username=user;password=closeyoureyes;
+        ports: 
+            - 5002:80
+
+    hotel-company-api:
+        environment: 
+            ConnectionString: host=postgresql-hotel;port=5432;database=postgresdb;username=user;password=closeyoureyes;
+        ports: 
+            - 5003:80
